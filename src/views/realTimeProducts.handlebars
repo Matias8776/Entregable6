@@ -1,0 +1,46 @@
+<h1>Productos en tiempo real</h1>
+
+<ul id="productsList"></ul>
+
+<section>
+    <div>
+        <h2>Agregar producto</h2>
+
+        <form id="addForm">
+            <label>Título:</label>
+            <input name="title" id="title" required />
+            <label>Descripción:</label>
+            <input name="description" id="description" required />
+            <label>Precio:</label>
+            <input name="price" id="price" type="number" required />
+            <label>Imágenes:</label>
+            <input type="file" name="thumbnails" id="thumbnails" multiple />
+            <label>Código:</label>
+            <input name="code" id="code" required />
+            <label>Stock:</label>
+            <input name="stock" id="stock" type="number" required />
+            <label>Categoria:</label>
+            <input name="category" id="category" required />
+            <label>Status:</label>
+            <input name="status" id="status" />
+
+            <button type="submit" id="submit">Agregar producto</button>
+            <p id="errorAdd" style="color: red;"></p>
+        </form>
+    </div>
+
+    <div>
+        <h2>Eliminar un producto</h2>
+
+        <form id="deleteForm">
+            <label>Id:</label>
+            <input name="id" id="id" />
+
+            <button type="submit" id="submit">Eliminar producto</button>
+            <p id="errorDelete" style="color: red;"></p>
+        </form>
+    </div>
+</section>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/index.js"></script>
