@@ -104,7 +104,7 @@ router.delete("/:cid/products/:pid", async (req, res) => {
         return;
     }
 
-    await cartManager.deleteProductInCart(cart.id, product.id);
+    await cartManager.deleteProductInCart(cart._id, product._id);
 
     res.send({ status: "success" });
 });
@@ -179,8 +179,8 @@ router.put("/:cid/products/:pid", async (req, res) => {
 
     const updateQuantity = req.body;
     await cartManager.updateProductQuantityInCart(
-        cart.id,
-        product.id,
+        cart._id,
+        product._id,
         updateQuantity
     );
     const updatedCart = await cartManager.getCartById(cid);
@@ -199,7 +199,7 @@ router.delete("/:cid", async (req, res) => {
         return;
     }
 
-    await cartManager.deleteProductsInCart(cart.id);
+    await cartManager.deleteProductsInCart(cart._id);
 
     res.send({ status: "success" });
 });

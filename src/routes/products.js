@@ -95,7 +95,7 @@ router.put("/:pid", async (req, res) => {
         return;
     }
     const updateProduct = req.body;
-    await productManager.updateProduct(product.id, updateProduct);
+    await productManager.updateProduct(product._id, updateProduct);
     const updatedProduct = await productManager.getProductById(pid);
     res.send(updatedProduct);
 });
@@ -112,7 +112,7 @@ router.delete("/:pid", async (req, res) => {
         return;
     }
 
-    await productManager.deleteProduct(product.id);
+    await productManager.deleteProduct(product._id);
     res.send({ status: "success" });
 });
 
