@@ -11,7 +11,7 @@ loginForm.addEventListener("submit", (e) => {
         headers: {
             "Content-Type": "application/json",
         },
-    }).then(async (response) => {
+    }).then( async (response) => {
         const errorElement = document.getElementById("error");
         if (response.status === 200) {
             loginForm.reset();

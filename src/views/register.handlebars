@@ -2,16 +2,16 @@
 
 <section>
     <form id="registerForm">
-        <label>Nombre</label>
-        <input name="first_name" />
-        <label>Apellido</label>
-        <input name="last_name" />
-        <label>Email</label>
-        <input type="email" name="email" />
-        <label>Edad</label>
-        <input name="age" />
-        <label>Contraseña</label>
-        <input type="password" name="password" />
+        <label for="first_name">Nombre</label>
+        <input name="first_name" id="first_name" />
+        <label for="last_name">Apellido</label>
+        <input name="last_name" id="last_name" />
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"/>
+        <label for="age">Edad</label>
+        <input name="age" type="number" id="age"/>
+        <label for="password">Contraseña</label>
+        <input type="password" name="password" id="password"/>
         <input type="submit" id="submit" />
         <p id="error" style="color: red;"></p>
     </form>

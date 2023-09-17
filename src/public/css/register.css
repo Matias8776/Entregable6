@@ -9,7 +9,7 @@ body {
 }
 
 h1 {
-    color: grey;
+    color: #999999;
     text-align: center;
     margin: 20px;
 }
@@ -26,7 +26,7 @@ form {
     flex-direction: column;
     margin: 20px auto;
     width: 15%;
-    color: grey;
+    color: #999999;
     align-items: center;
     justify-content: center;
 }
@@ -45,13 +45,13 @@ input {
 }
 
 p {
-    color: gray;
+    color: #999999;
     display: flex;
     justify-content: center;
 }
 
 a {
-    color:rgb(60, 96, 204);
+    color:#7590F0;
     margin-left: 10px;
     text-decoration: none;
 }

@@ -4,7 +4,7 @@ import usersModel from "../dao/models/users.js";
 const router = Router();
 
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = await req.body;
     if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
         req.session.user = {
             name: "Administrador",

@@ -7,24 +7,24 @@
         <h2>Agregar producto</h2>
 
         <form id="addForm">
-            <label>Título:</label>
+            <label for="title">Título:</label>
             <input name="title" id="title" required />
-            <label>Descripción:</label>
+            <label for="description">Descripción:</label>
             <input name="description" id="description" required />
-            <label>Precio:</label>
+            <label for="price">Precio:</label>
             <input name="price" id="price" type="number" step="any" required />
-            <label>Imágenes:</label>
+            <label for="thumbnails">Imágenes:</label>
             <input type="file" name="thumbnails" id="thumbnails" multiple />
-            <label>Código:</label>
+            <label for="code">Código:</label>
             <input name="code" id="code" required />
-            <label>Stock:</label>
+            <label for="stock">Stock:</label>
             <input name="stock" id="stock" type="number" required />
-            <label>Categoria:</label>
+            <label for="category">Categoria:</label>
             <input name="category" id="category" required />
-            <label>Status:</label>
+            <label for="status">Status:</label>
             <input name="status" id="status" />
 
-            <button type="submit" id="submit">Agregar producto</button>
+            <button type="submit" id="submitAdd">Agregar producto</button>
             <p id="errorAdd" style="color: red;"></p>
         </form>
     </div>
@@ -33,10 +33,10 @@
         <h2>Eliminar un producto</h2>
 
         <form id="deleteForm">
-            <label>Id:</label>
+            <label for="id">Id:</label>
             <input name="id" id="id" />
 
-            <button type="submit" id="submit">Eliminar producto</button>
+            <button type="submit" id="submitDel">Eliminar producto</button>
             <p id="errorDelete" style="color: red;"></p>
         </form>
     </div>

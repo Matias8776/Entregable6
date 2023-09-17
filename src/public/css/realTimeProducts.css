@@ -9,7 +9,7 @@ body {
 }
 
 h1 {
-    color: grey;
+    color: #999999;
     text-align: center;
     margin: 20px;
 }
@@ -18,7 +18,7 @@ ul {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    color: grey;
+    color: #999999;
 }
 
 li {
@@ -38,7 +38,7 @@ div {
 }
 
 h2 {
-    color: grey;
+    color: #999999;
     text-align: center;
     margin: 20px;
 }
@@ -48,7 +48,7 @@ form {
     flex-direction: column;
     margin: 20px auto;
     width: 50%;
-    color: grey;
+    color: #999999;
 }
 
 label {
@@ -59,7 +59,12 @@ input {
     margin-bottom: 10px;
 }
 
-#submit {
+#submitAdd {
+    width: 30%;
+    margin: 20px auto;
+}
+
+#submitDel {
     width: 30%;
     margin: 20px auto;
 }
