@@ -1,17 +1,17 @@
 const loginForm = document.getElementById("loginForm");
 
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const data = new FormData(loginForm);
     const obj = {};
     data.forEach((value, key) => (obj[key] = value));
-    fetch("api/sessions/login", {
+    await fetch("api/sessions/login", {
         method: "POST",
         body: JSON.stringify(obj),
         headers: {
             "Content-Type": "application/json",
         },
-    }).then( async (response) => {
+    }).then(async (response) => {
         const errorElement = document.getElementById("error");
         if (response.status === 200) {
             loginForm.reset();
