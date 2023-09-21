@@ -1,5 +1,6 @@
 import { Router } from "express";
 import usersModel from "../dao/models/users.js";
+import { createHash, isValidPassword } from "../utils.js";
 
 const router = Router();
 
@@ -14,13 +15,20 @@ router.post("/login", async (req, res) => {
         };
         return res.send({ status: "success", payload: req.session.user });
     } else {
-        const user = await usersModel.findOne({ email, password });
+        const user = await usersModel.findOne({ email });
         if (!user) {
-            return res.status(400).send({
+            return res.status(401).send({
                 status: "error",
-                message: "Usuario o constraseña inválidos",
+                message: "Usuario no encontrado",
             });
         }
+        if (!isValidPassword(user, password)) {
+            return res.status(401).send({
+                status: "error",
+                message: "Constraseña incorrecta",
+            });
+        }
+        delete user.password;
         req.session.user = {
             name: `${user.first_name} ${user.last_name}`,
             email: user.email,
@@ -40,7 +48,13 @@ router.post("/register", async (req, res) => {
             message: "Ya existe un usuario con ese email",
         });
     }
-    await usersModel.create({ first_name, last_name, email, age, password });
+    await usersModel.create({
+        first_name,
+        last_name,
+        email,
+        age,
+        password: createHash(password),
+    });
     res.send({
         status: "success",
         message: "Usuario registrado correctamente",

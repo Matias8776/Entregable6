@@ -17,7 +17,7 @@ const publicAccess = (req, res, next) => {
 
 const privateAccess = (req, res, next) => {
     if (!req.session.user) {
-        return res.redirect("/");
+        return res.status(403).redirect("/");
     }
     next();
 };
@@ -86,7 +86,7 @@ router.get("/products", privateAccess, async (req, res) => {
     });
 });
 
-router.get("/products/:pid", async (req, res) => {
+router.get("/products/:pid", privateAccess, async (req, res) => {
     const pid = req.params.pid;
     const plainProduct = await productManager.getProductById(pid);
 
@@ -97,7 +97,7 @@ router.get("/products/:pid", async (req, res) => {
     });
 });
 
-router.get("/carts/:cid", async (req, res) => {
+router.get("/carts/:cid", privateAccess, async (req, res) => {
     const cid = req.params.cid;
     const cart = await cartManager.getCartById(cid);
     const plainProducts = cart.products;

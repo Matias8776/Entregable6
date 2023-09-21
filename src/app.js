@@ -14,16 +14,15 @@ import sessionsRouter from "./routes/sessions.js";
 
 const messagesManager = new MessagesManager();
 
-const mongoURL = "mongodb+srv://Matty:zzz456@socketsdb.n3ygexn.mongodb.net/ecommerce"
+const db = mongoose.connection;
+const mongoURL =
+    "mongodb+srv://Matty:zzz456@socketsdb.n3ygexn.mongodb.net/ecommerce";
 const PORT = process.env.PORT || 8080;
 const app = express();
-const connection = await mongoose.connect(
-    mongoURL,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    }
-);
+mongoose.connect(mongoURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -34,8 +33,7 @@ app.set("view engine", "handlebars");
 app.use(
     session({
         store: MongoStore.create({
-            mongoUrl:
-                mongoURL,
+            mongoUrl: mongoURL,
         }),
         secret: "CoderSecret",
         resave: false,
@@ -48,29 +46,37 @@ app.use("/api/carts", cartsRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/sessions", sessionsRouter);
 
-const server = app.listen(PORT, () => {
-    console.log(`Servidor ON http://localhost:${PORT}`);
+db.on("error", (error) => {
+    console.error("Error de conexión a MongoDB:", error);
 });
 
-const io = new Server(server);
+db.once("open", () => {
+    console.log("Conexión a MongoDB establecida correctamente");
 
-io.on("connection", (socket) => {
-    console.log("Cliente conectado");
-    socket.on("disconnect", () => {
-        console.log("Cliente desconectado");
+    const server = app.listen(PORT, () => {
+        console.log(`Servidor ON http://localhost:${PORT}`);
     });
 
-    socket.emit("server:updatedProducts");
-    socket.on("client:updateProduct", () => {
-        io.emit("server:updatedProducts");
-    });
+    const io = new Server(server);
 
-    socket.on("nuevousuario", async (usuario) => {
-        socket.broadcast.emit("broadcast", usuario);
-        socket.emit("chat", await messagesManager.getMessages());
-    });
-    socket.on("mensaje", async (info) => {
-        await messagesManager.createMessage(info);
-        io.emit("chat", await messagesManager.getMessages());
+    io.on("connection", (socket) => {
+        console.log("Cliente conectado");
+        socket.on("disconnect", () => {
+            console.log("Cliente desconectado");
+        });
+
+        socket.emit("server:updatedProducts");
+        socket.on("client:updateProduct", () => {
+            io.emit("server:updatedProducts");
+        });
+
+        socket.on("nuevousuario", async (usuario) => {
+            socket.broadcast.emit("broadcast", usuario);
+            socket.emit("chat", await messagesManager.getMessages());
+        });
+        socket.on("mensaje", async (info) => {
+            await messagesManager.createMessage(info);
+            io.emit("chat", await messagesManager.getMessages());
+        });
     });
 });
